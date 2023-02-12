@@ -94,22 +94,22 @@ namespace Expenses
             if (result == DialogResult.Yes)
             {
                 //Edit a specific text from table
-                int x = dataGridView1.CurrentCell.RowIndex;
-                int z = x + 2;
+                int number_of_rows = dataGridView1.CurrentCell.RowIndex;
+                int fileline = number_of_rows + 2;
                 if (dataGridView1.CurrentCell.RowIndex >= 0)
                 {
                     DataGridViewRow row = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex];
-                    var n = row.Cells[0].Value.ToString();
-                    var d = row.Cells[1].Value.ToString();
-                    var p = row.Cells[2].Value.ToString();
-                    var y = n + "¢" + d + "¢" + p;
+                    var editedName = row.Cells[0].Value.ToString();
+                    var editedDate = row.Cells[1].Value.ToString();
+                    var editedPrice = row.Cells[2].Value.ToString();
+                    var editedline = editedName + "¢" + editedDate + "¢" + editedPrice;
                     void lineChanger(string newText, string fileName, int line_to_edit)
                     {
                         string[] arrLine = File.ReadAllLines(fileName);
                         arrLine[line_to_edit - 1] = newText;
                         File.WriteAllLines(fileName, arrLine);
                     }
-                    lineChanger(y, myfile, z);
+                    lineChanger(editedline, myfile, fileline);
                 }
                 Button3.PerformClick();
                 //Debug if text was edited
@@ -131,15 +131,15 @@ namespace Expenses
             if (result == DialogResult.Yes)
             {
                 //Delete a specific row from table
-                int x = dataGridView1.CurrentCell.RowIndex;
-                int z = x + 2;
+                int number_of_rows = dataGridView1.CurrentCell.RowIndex;
+                int fileline = number_of_rows + 2;
                 string tempFile = Path.GetTempFileName();
                 using (var sr = new StreamReader(myfile))
                 using (var sw = new StreamWriter(tempFile))
                 {
                     string line;
                     int line_number = 0;
-                    int line_to_delete = z;
+                    int line_to_delete = fileline;
                     while ((line = sr.ReadLine()) != null)
                     {
                         line_number++;
